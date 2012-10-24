@@ -2,6 +2,8 @@ include $(top_srcdir)/build-aux/autotroll.mk
 
 ACLOCAL_AMFLAGS = -I m4 --install
 
+SUBDIRS = $(subdirs)
+
 AM_CFLAGS = -fvisibility=hidden
 AM_CPPFLAGS = -I$(top_srcdir)/include
 AM_CXXFLAGS = -fvisibility=hidden -fvisibility-inlines-hidden

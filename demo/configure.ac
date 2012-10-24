@@ -2,10 +2,10 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([qtuiotouch],
+AC_INIT([qtuiotouchdemo],
         m4_esyscmd([build-aux/git-version-gen .tarball-version]),
         [daniel.casimiro@navy.mil])
-AC_CONFIG_SRCDIR([src/qtuiotouch.cpp])
+AC_CONFIG_SRCDIR([src/graphicsview.cpp])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_HEADER([build-aux/config.h])
 AC_CONFIG_MACRO_DIR([m4])
@@ -57,20 +57,12 @@ LT_INIT
 
 # Checks for libraries.
 # Qt with AutoTroll
-AT_WITH_QT([gui-private], [plugin])
-
-# find boost
-AC_ARG_VAR([BOOST_ROOT], [Set this to the directory where boost is staged])
-AX_BOOST_BASE([1.51])
-AX_BOOST_SYSTEM
-AX_BOOST_ASIO
+AT_WITH_QT([core gui opengl widgets])
 
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
-
-AC_CONFIG_SUBDIRS([demo])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
