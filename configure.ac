@@ -59,6 +59,12 @@ LT_INIT
 # Qt with AutoTroll
 AT_WITH_QT([gui-private], [plugin])
 
+# find boost
+AC_ARG_VAR([BOOST_ROOT], [Set this to the directory where boost is staged])
+AX_BOOST_BASE([1.51])
+AX_BOOST_SYSTEM
+AX_BOOST_ASIO
+
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.

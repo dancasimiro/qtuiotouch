@@ -21,9 +21,10 @@ QTuioPlugin::~QTuioPlugin()
 QObject*
 QTuioPlugin::create(const QString& key, const QString& spec)
 {
-        qDebug() << "Create TUIO Plugin";
         if (!key.compare(QLatin1String("TuioTouch"), Qt::CaseInsensitive)) {
-                return new QTuioTouchScreenHandlerThread(spec);
+                QScopedPointer<QTuioTouchScreenHandler> myHandler(new QTuioTouchScreenHandler(spec));
+                myHandler->start();
+                return myHandler.take();
         }
         return 0;
 }

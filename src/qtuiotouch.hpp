@@ -4,10 +4,15 @@
 #define DCC_QTUIOTOUCH_HEAD
 
 #include <QObject>
-#include <QThread>
+#include <QScopedPointer>
 
 namespace qtuio {
 
+namespace detail {
+struct tuio_impl;
+};
+
+/// \note could templatize this on the TUIO transport type. Assume UDP for now.
 class QTuioTouchScreenHandler : public QObject
 {
         Q_OBJECT;
@@ -15,17 +20,13 @@ class QTuioTouchScreenHandler : public QObject
 public:
         QTuioTouchScreenHandler(const QString& spec = QString(), QObject* parent = 0);
         virtual ~QTuioTouchScreenHandler();
-};     // class QTuioTouchScreenHandler
 
-class QTuioTouchScreenHandlerThread : public QThread
-{
-public:
-        QTuioTouchScreenHandlerThread(const QString& spec, QObject* parent = 0);
-        virtual ~QTuioTouchScreenHandlerThread();
-
-        virtual void run();
+        void start();
+        void stop();
 private:
         QString spec_;
-};     // class QTuioTouchScreenHandlerThread
+        QScopedPointer<detail::tuio_impl> tuio_;
+};     // class QTuioTouchScreenHandler
+
 }      // namespace qtuio
 #endif // DCC_QTUIOTOUCH_HEAD
