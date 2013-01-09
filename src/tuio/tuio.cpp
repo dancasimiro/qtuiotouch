@@ -179,15 +179,20 @@ frame_decoder::operator()(const std::string& address, const std::string& type_st
 {
         // get the command from the arguments
         assert(type_string[1] == 's');
-        const std::string command = dosc::decode_string_tag(arguments);
-        if (command == "set") {
+        const char* const command = dosc::decode_string_tag(arguments);
+        assert(command);
+        if (!command) {
+                std::cout << "Warning: Invalid TUIO stream!" << std::endl;
+                return;
+        }
+        if (!strcmp(command, "set")) {
                 proc_set(address, type_string.substr(2), arguments);
-        } else if (command == "alive") {
+        } else if (!strcmp(command, "alive")) {
                 proc_alive(type_string.substr(2), arguments);
-        } else if (command == "fseq") {
+        } else if (!strcmp(command, "fseq")) {
                 assert(type_string == ",si");
                 proc_fseq(arguments);
-        } else if (command == "source") {
+        } else if (!strcmp(command, "source")) {
                 assert(type_string == ",ss");
                 frame_.source = dosc::decode_string_tag(arguments);
         } else {

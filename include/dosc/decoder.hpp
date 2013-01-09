@@ -39,7 +39,7 @@ int32_t decode_int32_tag(const_buffer_range& range);
 int64_t decode_int64_tag(const_buffer_range& range);
 float   decode_float_tag(const_buffer_range& range);
 double  decode_double_tag(const_buffer_range& range);
-std::string decode_string_tag(const_buffer_range& range);
+const char* decode_string_tag(const_buffer_range& range);
 
 class decoder {
 public:

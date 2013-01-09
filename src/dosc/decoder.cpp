@@ -128,16 +128,17 @@ decode_double_tag(const_buffer_range& range)
         return tag;
 }
 
-std::string
+const char*
 decode_string_tag(const_buffer_range& range)
 {
         const_buffer_iterator null_pos = boost::find(range, '\0');
         if (null_pos == range.second) {
                 throw std::runtime_error("Invalid string!");
         }
-        const std::string tag(range.first, null_pos);
+        const size_t length = distance(range.first, null_pos);
+        const char* tag = reinterpret_cast<const char*>(&*range.first);
         range.first = null_pos;
-        chomp_string(range, 4 - (tag.length() % 4));
+        chomp_string(range, 4 - (length % 4));
         return tag;
 }
 
