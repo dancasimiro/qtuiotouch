@@ -174,23 +174,23 @@ decoder::parse(const_buffer_range range)
 const_buffer_iterator
 decoder::parse_message(const_buffer_range range)
 {
-        std::string address_pattern;
         for (; range.first != range.second && *range.first; advance(range.first, 1)) {
-                address_pattern.push_back(*range.first);
+                address_.push_back(*range.first);
         }
-        chomp_string(range, 4 - address_pattern.size() % 4);
+        chomp_string(range, 4 - address_.size() % 4);
 
         // type string is optional
-        std::string type_string;
         if (range.first != range.second && *range.first == ',') {
                 for (; range.first != range.second && *range.first != '\0'; advance(range.first, 1)) {
-                        type_string.push_back(*range.first);
+                        type_.push_back(*range.first);
                 }
-                chomp_string(range, 4 - type_string.size() % 4);
+                chomp_string(range, 4 - type_.size() % 4);
         }
-        const_buffer_iterator arg_end = calculate_size(type_string, range);
+        const_buffer_iterator arg_end = calculate_size(type_, range);
         const_buffer_range arguments(range.first, arg_end);
-        methods_[all](address_pattern, type_string, arguments);
+        methods_[all](address_, type_, arguments);
+        address_.clear();
+        type_.clear();
 
         return arg_end;
 }

@@ -53,6 +53,8 @@ private:
         typedef std::map<std::string, function_type> map_type;
 
         map_type methods_; ///< address methods; invoked when new messages arrive
+        std::string address_; ///< Current address pattern
+        std::string type_; ///< Current type string
 
         const_buffer_iterator parse(const_buffer_range);
         const_buffer_iterator parse_message(const_buffer_range);
