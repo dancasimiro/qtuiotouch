@@ -68,6 +68,15 @@ LT_INIT
 # Qt with AutoTroll
 AT_WITH_QT([gui-private], [plugin])
 
+# Set the default prefix to match the location of the found qmake.
+# This is based on the code from AC_PREFIX_PROGRAM.
+# must be run after AT_WITH_QT
+if test "x$prefix" = xNONE; then
+   prefix=`AS_DIRNAME(["$QMAKE"])`
+   prefix=`AS_DIRNAME(["$prefix"])`
+   _AS_ECHO([set default prefix to $prefix])
+fi
+
 # find boost
 AC_ARG_VAR([BOOST_ROOT], [Set this to the directory where boost is staged])
 AX_BOOST_BASE([1.51])
