@@ -46,6 +46,15 @@ dnl the verbose output at configure time by passing the "--disable-silent-rules"
 dnl option or at Make time by specifying an envirenment variable V (make V=0).
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
+# Installation directory options.
+# This sets a directory where Qt plugin dirs can be installed.
+# Based on the logic from autoconf/general.m4 that sets up variables like "bindir."
+# These are left unexpanded so users can "make install plugin_prefix=/foo"
+# and all the variables that are supposed to be based on plugin_prefix
+# by default will actually change.
+# Use braces instead of parens because sh, perl, etc. also accept them.
+AC_SUBST([plugindir],         ['${exec_prefix}/plugins'])dnl
+
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC

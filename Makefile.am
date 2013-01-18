@@ -13,7 +13,7 @@ noinst_LTLIBRARIES = \
 	src/dosc/libdosc.la \
 	src/tuio/libtuio.la
 
-lib_LTLIBRARIES = src/libqtuiotouch.la
+nobase_plugin_LTLIBRARIES = generic/libqtuiotouch.la
 
 check_PROGRAMS = \
 	src/dosc/doscdump \
@@ -81,7 +81,7 @@ src_tuio_tuiodump_LDADD = \
 	@BOOST_SYSTEM_LIB@
 
 # libqtuiotouch.la
-src_libqtuiotouch_la_SOURCES = \
+generic_libqtuiotouch_la_SOURCES = \
 	$(BUILT_SOURCES) \
 	src/qasioioservice.hpp \
 	src/qasioioservice.cpp \
@@ -89,14 +89,14 @@ src_libqtuiotouch_la_SOURCES = \
 	src/qtuioplugin.cpp \
 	src/qtuiotouch.hpp \
 	src/qtuiotouch.cpp
-src_libqtuiotouch_la_CXXFLAGS = \
+generic_libqtuiotouch_la_CXXFLAGS = \
 	$(AM_CXXFLAGS) \
 	$(QT_CXXFLAGS)
-src_libqtuiotouch_la_CPPFLAGS = \
+generic_libqtuiotouch_la_CPPFLAGS = \
 	$(AM_CPPFLAGS) \
 	$(QT_CPPFLAGS) \
 	@BOOST_CPPFLAGS@
-src_libqtuiotouch_la_LDFLAGS = \
+generic_libqtuiotouch_la_LDFLAGS = \
 	-module \
 	-avoid-version \
 	-no-undefined \
@@ -104,7 +104,7 @@ src_libqtuiotouch_la_LDFLAGS = \
 	$(AM_LDFLAGS) \
 	$(QT_LDFLAGS) \
 	@BOOST_LDFLAGS@
-src_libqtuiotouch_la_LIBADD = \
+generic_libqtuiotouch_la_LIBADD = \
 	$(QT_LIBS) \
 	src/dosc/libdosc.la \
 	src/tuio/libtuio.la \
