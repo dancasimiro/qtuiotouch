@@ -221,7 +221,8 @@ decoder::parse_bundle(const_buffer_range range)
                 const const_buffer_iterator size_start = range.first;
                 advance(range.first, 4);
                 std::reverse_copy(size_start, range.first, reinterpret_cast<char*>(&element_size));
-                parse(range);
+                // make a new range so that the parse function only parses a single bundle element.
+                parse(make_pair(range.first, range.first + element_size));
                 assert(element_size % 4 == 0);
                 while (element_size % 4) {
                         element_size += 1;
