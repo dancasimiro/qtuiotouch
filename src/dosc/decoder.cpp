@@ -154,21 +154,15 @@ decoder::parse(const_buffer_range range)
         while (range.first < range.second) {
                 switch (*range.first) {
                 case '#': // bundle
-                        //std::cout << "bundle" << std::endl;
                         range.first = parse_bundle(range);
-                        //std::cout << "bundle done" << std::endl;
                         break;
                 case '/': // message
-                        //std::cout << "message" << std::endl;
                         range.first = parse_message(range);
-                        //std::cout << "message done" << std::endl;
                         break;
                 default:
-                        //std::cout << "Warning: unrecognized character @ start of element: 0x" << static_cast<unsigned int>(*range.first) << std::endl;
                         advance(range.first, 1);
                 }
         }
-        //std::cout << "packet done" << std::endl;
         return range.first;
 }
 
