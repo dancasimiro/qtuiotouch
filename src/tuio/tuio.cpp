@@ -118,6 +118,7 @@ frame_decoder::proc_set(const std::string& address, const std::string& type_stri
 
         if (address == "/tuio/2Dobj") {
                 assert(type_string == "iiffffffff");
+                tp_iter->type = token_touch;
                 tp_iter->class_id = dosc::decode_int32_tag(args);
                 tp_iter->position.x = dosc::decode_float_tag(args);
                 tp_iter->position.y = dosc::decode_float_tag(args);
@@ -129,6 +130,7 @@ frame_decoder::proc_set(const std::string& address, const std::string& type_stri
                 tp_iter->acceleration.rotation = dosc::decode_float_tag(args);
         } else if (address == "/tuio/2Dcur") {
                 assert(type_string == "ifffff");
+                tp_iter->type = pointer_touch;
                 tp_iter->position.x = dosc::decode_float_tag(args);
                 tp_iter->position.y = dosc::decode_float_tag(args);
                 tp_iter->velocity.X = dosc::decode_float_tag(args);
@@ -136,6 +138,7 @@ frame_decoder::proc_set(const std::string& address, const std::string& type_stri
                 tp_iter->acceleration.motion = dosc::decode_float_tag(args);
         } else if (address == "/tuio/2Dblb") {
                 assert(type_string == "ifffffffffff");
+                tp_iter->type = pointer_touch;
                 tp_iter->position.x = dosc::decode_float_tag(args);
                 tp_iter->position.y = dosc::decode_float_tag(args);
                 tp_iter->angle.a = dosc::decode_float_tag(args);
