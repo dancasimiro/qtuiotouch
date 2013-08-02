@@ -12,8 +12,8 @@
 
 # Qt-es
 
-*.pro.user
-*.pro.user.*
+*user
+*zxuser.*
 moc_*.cpp
 qrc_*.cpp
 Makefile

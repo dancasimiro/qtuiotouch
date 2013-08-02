@@ -13,9 +13,9 @@
 #include <boost/bind.hpp>
 #include <boost/range/algorithm/for_each.hpp>
 #include <boost/asio.hpp>
-#include <QDebug>
-#include <QGuiApplication>
-#include <qpa/qwindowsysteminterface.h>
+#include <QtCore/QDebug>
+#include <QtGui/QGuiApplication>
+#include <QtGui/qpa/qwindowsysteminterface.h>
 // based on implementation of qevdevtouch.cpp from Qt 5.0 Beta 1
 
 namespace qtuio {
