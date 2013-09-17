@@ -1,5 +1,12 @@
+cmake_minimum_required(VERSION 2.8.10)
+
+if (DEFINED ENV{QTDIR})
+    set(CMAKE_PREFIX_PATH $ENV{QTDIR} ${CMAKE_PREFIX_PATH})
+else ()
+    message (FATAL_ERROR "ERROR: Environment variable QTDIR is not set. Please locate your Qt folder MY_QT5_DIR.")
+endif ()
+
 project(qtuiotouch)
-cmake_minimum_required(VERSION 2.8.11)
 
 set(CMAKE_CXX_FLAGS                      "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
@@ -46,4 +53,5 @@ set(QTUIOTOUCH_SOURCES
 )
 
 add_library(qtuiotouch MODULE ${QTUIOTOUCH_SOURCES})
+qt5_use_modules(qtuiotouch Core)
 target_link_libraries(qtuiotouch ${Boost_LIBRARIES} Qt5::Gui)
