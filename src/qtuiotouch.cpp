@@ -186,26 +186,33 @@ tuio_impl::update_qws_touch_point(const tuio::touch_point& tp, QWindowSystemInte
 void
 tuio_impl::add_touch_point(const tuio::touch_point& tp)
 {
-        QWindowSystemInterface::TouchPoint touch = make_qws_touch_point(tp);
-        Q_ASSERT(!points.contains(touch.id));
-        points.insert(touch.id, touch);
+    if (points.contains(tp.session_id)) {
+        qWarning() << "Ignoring ADD command for existing session ID" << tp.session_id;
+        return;
+    }
+    QWindowSystemInterface::TouchPoint touch = make_qws_touch_point(tp);
+    points.insert(touch.id, touch);
 }
 
 void
 tuio_impl::update_touch_point(const tuio::touch_point& tp)
 {
-        Q_ASSERT(points.contains(tp.session_id));
-        if (!points.contains(tp.session_id)) return;
-
-        update_qws_touch_point(tp, points[tp.session_id]);
+    if (!points.contains(tp.session_id)) {
+        qWarning() << "Ignoring UPDATE command for missiong session ID" << tp.session_id;
+        return;
+    }
+    update_qws_touch_point(tp, points[tp.session_id]);
 }
 
 void
 tuio_impl::remove_touch_point(const tuio::touch_point& tp)
 {
-        Q_ASSERT(points.contains(tp.session_id));
-        QWindowSystemInterface::TouchPoint& existing = update_qws_touch_point(tp, points[tp.session_id]);
-        existing.state = Qt::TouchPointReleased;
+    if (!points.contains(tp.session_id)) {
+        qWarning() << "Ignoring REMOVE command for missing session ID" << tp.session_id;
+        return;
+    }
+    QWindowSystemInterface::TouchPoint& existing = update_qws_touch_point(tp, points[tp.session_id]);
+    existing.state = Qt::TouchPointReleased;
 }
 
 void
