@@ -1,1 +1,21 @@
+# C++ objects and libs
+
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+
+# Qt-es
+
+*user
+*zxuser.*
+moc_*.cpp
+qrc_*.cpp
+Makefile
+*-build-*
 build
