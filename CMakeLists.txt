@@ -52,6 +52,11 @@ set(QTUIOTOUCH_SOURCES
 	src/qtuiotouch.cpp
 )
 
-add_library(qtuiotouch MODULE ${QTUIOTOUCH_SOURCES})
+if(APPLE)
+	add_library(qtuiotouch SHARED ${QTUIOTOUCH_SOURCES})
+else ()
+	add_library(qtuiotouch MODULE ${QTUIOTOUCH_SOURCES})
+endif ()
+
 qt5_use_modules(qtuiotouch Core)
 target_link_libraries(qtuiotouch ${Boost_LIBRARIES} Qt5::Gui)
