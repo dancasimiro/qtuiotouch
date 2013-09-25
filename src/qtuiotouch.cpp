@@ -92,11 +92,12 @@ tuio_impl::handle_frame(const tuio::frame& frm)
         if (!devices.contains(frm.source)) {
                 register_device(frm.source);
         }
-        boost::for_each(frm.added, boost::bind(&tuio_impl::add_touch_point, this, _1));
-        boost::for_each(frm.updated, boost::bind(&tuio_impl::update_touch_point, this, _1));
         boost::for_each(frm.removed, boost::bind(&tuio_impl::remove_touch_point, this, _1));
         report_points(frm);
         boost::for_each(frm.removed, boost::bind(&tuio_impl::drop_touch_point, this, _1));
+
+        boost::for_each(frm.updated, boost::bind(&tuio_impl::update_touch_point, this, _1));
+        boost::for_each(frm.added, boost::bind(&tuio_impl::add_touch_point, this, _1));
 }
 
 void
