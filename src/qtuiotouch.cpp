@@ -20,9 +20,6 @@
 
 namespace qtuio {
 namespace detail {
-//static float hw_width() { return 2560.0f; }
-//static float hw_height() { return 1440.0f; }
-
 struct tuio_impl {
         QAsioIOService asio;
         tuio::frame_decoder decoder;
@@ -37,7 +34,6 @@ struct tuio_impl {
         void report_points(const tuio::frame& frm);
 
         QRectF get_screen_rect();
-        QRectF get_window_rect();
         QWindowSystemInterface::TouchPoint& fill_qws_touch_point(const tuio::touch_point& tuio_tp, QWindowSystemInterface::TouchPoint& qws_tp);
         QWindowSystemInterface::TouchPoint make_qws_touch_point(const tuio::touch_point& tp);
         QWindowSystemInterface::TouchPoint& update_qws_touch_point(const tuio::touch_point&tp, QWindowSystemInterface::TouchPoint& existing);
@@ -112,20 +108,6 @@ tuio_impl::get_screen_rect()
         return QGuiApplication::primaryScreen()->geometry();
 }
 
-QRectF
-tuio_impl::get_window_rect()
-{
-#if 0
-        // qevdevtouch has this "m_forceToActiveWindow" member; not sure why...
-        if (m_forceToActiveWindow) {
-                if (QWindow *win = QGuiApplication::focusWindow()) {
-                        return win->geometry();
-                }
-        }
-#endif
-        return get_screen_rect();
-}
-
 QWindowSystemInterface::TouchPoint&
 tuio_impl::fill_qws_touch_point(const tuio::touch_point& tuio_tp, QWindowSystemInterface::TouchPoint& qws_tp)
 {
@@ -133,11 +115,6 @@ tuio_impl::fill_qws_touch_point(const tuio::touch_point& tuio_tp, QWindowSystemI
 
         /// The TUIO touch point arrives in normalized hardware coordinates
         const QRectF screenRect = get_screen_rect();
-        //const QRectF winRect = get_window_rect();
-        // Generate a screen position that is always within the active window
-        // const qreal
-        //         xScaleFactor = screenRect.width()  / winRect.width(),
-        //         yScaleFactor = screenRect.height() / winRect.height();
         const QPointF screenPos(tuio_tp.position.x * screenRect.width(), tuio_tp.position.y * screenRect.height());
 
         // QWindowSystemInterface::TouchPoint wants the normalPosition in normalized touch device coordinates (same as TUIO)
