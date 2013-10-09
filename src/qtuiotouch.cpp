@@ -104,8 +104,13 @@ tuio_impl::drop_touch_point(const tuio::touch_point& tp)
 QRectF
 tuio_impl::get_screen_rect()
 {
-        /// \todo add support for multiple screens...
-        return QGuiApplication::primaryScreen()->geometry();
+    QList<QScreen*> screens = QGuiApplication::screens();
+    QListIterator<QScreen*> iter(screens);
+    while (iter.hasNext()) {
+        QScreen * const scrn = iter.next();
+        qDebug() << "inspect screen" << scrn->name();
+    }
+    return QGuiApplication::primaryScreen()->geometry();
 }
 
 QWindowSystemInterface::TouchPoint&
