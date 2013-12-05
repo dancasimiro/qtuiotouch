@@ -1,4 +1,4 @@
-The WAV.jl package is licensed under the MIT Expat License:
+The qtuiotouch plugin is licensed under the MIT Expat License:
 
 > Copyright (c) 2013: Daniel C. Casimiro.
 >
